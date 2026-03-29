@@ -1,6 +1,8 @@
 require('dotenv').config({ path: '../.env' });
 const pool = require('../db/pool');
 
+const isDirectRun = require.main === module;
+
 // Manual region inference map — Data Dragon does not provide lore regions
 const CHAMPION_REGION_MAP = {
   // Noxus
@@ -172,10 +174,23 @@ const seedChampions = async () => {
   }
 
   console.log(`✅ Seeded ${seeded} champions. Skipped: ${skipped}.`);
-  await pool.end();
+  if (isDirectRun) await pool.end();
 };
 
-seedChampions().catch(err => {
-  console.error('Seed failed:', err);
-  process.exit(1);
-});
+const seedChampionsIfEmpty = async () => {
+  const { rows } = await pool.query('SELECT COUNT(*) FROM champions');
+  if (parseInt(rows[0].count) > 0) {
+    console.log(`ℹ️  Champions already seeded (${rows[0].count} found), skipping.`);
+    return;
+  }
+  await seedChampions();
+};
+
+if (isDirectRun) {
+  seedChampions().catch(err => {
+    console.error('Seed failed:', err);
+    process.exit(1);
+  });
+}
+
+module.exports = seedChampionsIfEmpty;

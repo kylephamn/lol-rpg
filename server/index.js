@@ -1,6 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const migrate = require('./db/migrate');
+const seedChampionsIfEmpty = require('./scripts/seedChampions');
 
 const app = express();
 
@@ -30,6 +32,15 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`🚀 LoL RPG Server running on port ${PORT}`);
-});
+
+migrate()
+  .then(() => seedChampionsIfEmpty())
+  .then(() => {
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log(`🚀 LoL RPG Server running on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error('Startup failed:', err);
+    process.exit(1);
+  });
