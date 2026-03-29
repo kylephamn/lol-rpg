@@ -355,7 +355,7 @@ router.post('/:id/action', auth, async (req, res) => {
     await client.query(
       `UPDATE player_characters SET
          current_hp = $1, current_mana = $2, gold = $3, xp = $4, level = $5,
-         items = $6, status_effects = $7, stats = $8, ability_ranks = $9, updated_at = NOW()
+         items = $6, status_effects = $7, stats = $8, ability_ranks = $9
        WHERE id = $10`,
       [
         pc.current_hp, pc.current_mana, pc.gold || 500, pc.xp || 0, pc.level || 1,
