@@ -8,7 +8,7 @@
 
 [[redirects]]
   from   = "/api/*"
-  to     = "http://<your-server-ip>:3001/api/:splat"
+  to     = "https://lol-rpg-production.up.railway.app/api/:splat"
   status = 200
   force  = true
 
