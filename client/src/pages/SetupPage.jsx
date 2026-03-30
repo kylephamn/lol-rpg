@@ -142,9 +142,7 @@ export default function SetupPage() {
                     ${selectedChamp?.id === champ.id ? 'border-gold-400 scale-105' : 'border-transparent hover:border-gold-500/50'}`}
                 >
                   <img
-                    src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${
-                      champ.id.charAt(0).toUpperCase() + champ.id.slice(1)
-                    }.png`}
+                    src={getChampionIconSync(champ.id, version)}
                     alt={champ.name}
                     onError={onImgError}
                     className="w-full h-full object-cover"
@@ -281,9 +279,7 @@ export default function SetupPage() {
                 {campaign.players.map(p => (
                   <div key={p.user_id} className="flex items-center gap-2 bg-surface border border-border rounded-full px-3 py-1.5">
                     <img
-                      src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${
-                        p.champion_id?.charAt(0).toUpperCase() + p.champion_id?.slice(1)
-                      }.png`}
+                      src={getChampionIconSync(p.champion_id, version)}
                       onError={onImgError}
                       className="w-6 h-6 rounded-full"
                       alt=""
