@@ -42,12 +42,12 @@ const PLACEHOLDER = 'https://placehold.co/120x120/1A1A35/D4AF37?text=?';
 
 export const getChampionSplash = (championId, skin = 0) => {
   if (!championId) return PLACEHOLDER;
-  return `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${toDDragonId(championId)}_${skin}.png`;
+  return `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${toDDragonId(championId)}_${skin}.jpg`;
 };
 
 export const getChampionLoadingArt = (championId, skin = 0) => {
   if (!championId) return PLACEHOLDER;
-  return `https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${toDDragonId(championId)}_${skin}.png`;
+  return `https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${toDDragonId(championId)}_${skin}.jpg`;
 };
 
 export const getChampionIcon = async (championId) => {
